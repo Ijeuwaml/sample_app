@@ -61,6 +61,8 @@ def generate_professional_recommendation(analysis: dict, method: str) -> str:
         "Discuss key tradeoffs and potential implementation risks, and suggest actionable monitoring metrics. "
         "The recommendation should consist of at least two coherent lines of text."
     )
+    print("Prompt:", prompt)
+
     
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=512)
     outputs = model.generate(
