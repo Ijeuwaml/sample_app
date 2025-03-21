@@ -61,46 +61,21 @@ def generate_professional_recommendation(analysis: dict, method: str) -> str:
         "Discuss key tradeoffs and potential implementation risks, and suggest actionable monitoring metrics. "
         "The recommendation should consist of at least two coherent lines of text."
     )
-    #My attempt to log my Prompts
-    print("Prompt:", prompt)
     
-    # inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=512)
-    # outputs = model.generate(
-      #  **inputs,
-       # max_length=400,
-        # num_beams=5,
-        #do_sample=True,
-       # temperature=0.7,
-        #repetition_penalty=1.25,
-       # no_repeat_ngram_size=3,
-        #early_stopping=True
-   # )
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=512)
     outputs = model.generate(
         **inputs,
-        max_length=500,           # Increased max_length
+        max_length=400,           
+        min_length=150,
         num_beams=5,
         do_sample=True,
-        temperature=0.8,          # Increased temperature for diversity
-        top_p=0.9,                # Added top_p sampling
+        temperature=0.8,          
+        top_p=0.9,                
         repetition_penalty=1.25,
         no_repeat_ngram_size=3,
         early_stopping=True
     )
-    print("Output:", outputs[outputs])
-
-    #raw_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    
-    # Post-process to ensure coherent sentences and at least two lines.
-    #sentences = [s.strip().capitalize() for s in raw_text.replace('\n', ' ').split('. ') if s.strip()]
-    #recommendation = '. '.join(sentences)
-    #if not recommendation.endswith('.'):
-      #  recommendation += '.'
-    # Ensure there is at least one newline to separate two lines
-    #if recommendation.count('\n') < 1:
-      #  recommendation = recommendation.replace('. ', '.\n', 1)
-   # return recommendation
-
+   
     raw_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 # Clean up the raw text: remove extra whitespace and newlines.
