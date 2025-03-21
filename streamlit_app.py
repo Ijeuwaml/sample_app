@@ -33,8 +33,8 @@ st.markdown("""
 # ─── Load Small Language Model for Recommendation (as LangGraph proxy) ─────
 @st.cache_resource(show_spinner=False)
 def load_language_model():
-    tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
-    model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-small")
+    tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-base")
+    model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-base")
     return tokenizer, model
 
 tokenizer, model = load_language_model()
