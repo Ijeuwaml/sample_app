@@ -87,6 +87,7 @@ def generate_professional_recommendation(analysis: dict, method: str) -> str:
         no_repeat_ngram_size=3,
         early_stopping=True
     )
+    print("Output:", outputs[0])
 
     raw_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
     
