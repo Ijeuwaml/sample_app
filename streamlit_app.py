@@ -89,17 +89,39 @@ def generate_professional_recommendation(analysis: dict, method: str) -> str:
     )
     print("Output:", outputs[outputs])
 
-    raw_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    #raw_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
     
     # Post-process to ensure coherent sentences and at least two lines.
-    sentences = [s.strip().capitalize() for s in raw_text.replace('\n', ' ').split('. ') if s.strip()]
+    #sentences = [s.strip().capitalize() for s in raw_text.replace('\n', ' ').split('. ') if s.strip()]
+    #recommendation = '. '.join(sentences)
+    #if not recommendation.endswith('.'):
+      #  recommendation += '.'
+    # Ensure there is at least one newline to separate two lines
+    #if recommendation.count('\n') < 1:
+      #  recommendation = recommendation.replace('. ', '.\n', 1)
+   # return recommendation
+
+    raw_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+# Clean up the raw text: remove extra whitespace and newlines.
+    raw_text = " ".join(raw_text.split())
+
+# Split into sentences using '. ' as a delimiter.
+    sentences = [sentence.strip().capitalize() for sentence in raw_text.split('. ') if sentence.strip()]
+
+# Join the sentences with a period and a space.
     recommendation = '. '.join(sentences)
     if not recommendation.endswith('.'):
         recommendation += '.'
-    # Ensure there is at least one newline to separate two lines
-    if recommendation.count('\n') < 1:
-        recommendation = recommendation.replace('. ', '.\n', 1)
+
+# Ensure there's at least one newline by inserting one after the first sentence if not already present.
+    if recommendation.count('\n') < 1 and len(sentences) > 1:
+        first_sentence = sentences[0] + '.'
+        remaining_text = '. '.join(sentences[1:])
+        recommendation = first_sentence + "\n" + remaining_text
+
     return recommendation
+
 
 # ─── Default Base Criteria Weights ─────────────────────────────────────────
 default_weights = {
