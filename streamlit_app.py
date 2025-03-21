@@ -188,8 +188,8 @@ def create_criteria_radar(df: pd.DataFrame, base_weights):
 def create_total_sum_violin(df: pd.DataFrame):
     fig, ax = plt.subplots(figsize=(6, 4))
     palette = sns.color_palette("Set2", n_colors=len(df['case_type'].unique()))
-#    sns.violinplot(x='case_type', y='total_sum', data=df, palette=palette, ax=ax)
-    sns.violinplot(x='case_type', y='total_sum', data=df, palette=sns.color_palette("Set2", n_colors=len(df['case_type'].unique())), ax=ax, legend=False)
+#    sns.violinplot(x='case_type', y='total_sum', data=df, palette=sns.color_palette("Set2", n_colors=len(df['case_type'].unique())), ax=ax, legend=False)
+    sns.violinplot(x='case_type', y='total_sum', data=df, hue='case_type', palette=sns.color_palette("Set2", n_colors=len(df['case_type'].unique())), ax=ax, legend=False)
     ax.set_title("Weight Distribution by Case Type")
     ax.set_xlabel("Case Type")
     ax.set_ylabel("Total Sum")
