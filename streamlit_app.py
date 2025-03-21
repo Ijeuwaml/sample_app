@@ -64,17 +64,30 @@ def generate_professional_recommendation(analysis: dict, method: str) -> str:
     #My attempt to log my Prompts
     print("Prompt:", prompt)
     
+    # inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=512)
+    # outputs = model.generate(
+      #  **inputs,
+       # max_length=400,
+        # num_beams=5,
+        #do_sample=True,
+       # temperature=0.7,
+        #repetition_penalty=1.25,
+       # no_repeat_ngram_size=3,
+        #early_stopping=True
+   # )
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=512)
     outputs = model.generate(
         **inputs,
-        max_length=400,
+        max_length=500,           # Increased max_length
         num_beams=5,
         do_sample=True,
-        temperature=0.7,
+        temperature=0.8,          # Increased temperature for diversity
+        top_p=0.9,                # Added top_p sampling
         repetition_penalty=1.25,
         no_repeat_ngram_size=3,
         early_stopping=True
     )
+
     raw_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
     
     # Post-process to ensure coherent sentences and at least two lines.
